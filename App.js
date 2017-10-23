@@ -1,9 +1,23 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Platform, StatusBar } from 'react-native';
 import { TabNavigator, StackNavigator } from 'react-navigation'
 import Deck from './components/Deck'
 import Home from './components/Home'
 import NewDeck from './components/NewDeck'
+import DeckQuestions from './components/DeckQuestions'
+import * as color from './utils/colors'
+import { Constants } from 'expo'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+import reducer from './reducers'
+
+function AppStatusBar ({backgroundColor, ...props}) {
+  return (
+    <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
+      <StatusBar translucent backgroundColor={backgroundColor} {...props} />
+    </View>
+  )
+}
 
 const Tabs = TabNavigator({
   Home: {
@@ -12,18 +26,46 @@ const Tabs = TabNavigator({
       tabBarLabel: 'Decks',
     },
   },
-  AddEntry: {
+  NewDeck: {
     screen: NewDeck,
     navigationOptions: {
       tabBarLabel: 'New Deck',
     },
   },
+}, {
+  navigationOptions: {
+    header: null
+  },
+  tabBarOptions: {
+    activeTintColor: color.white,
+    style: {
+      height: 56,
+      backgroundColor: color.darkblue,
+    }
+  }
+})
+
+const Stack = StackNavigator({
+  Home: {
+    screen: Tabs,
+  },
+  DeckQuestions: {
+    screen: DeckQuestions,
+    navigationOptions: {
+      headerTintColor: color.darkblue,
+    }
+  }
 })
 
 export default class App extends React.Component {
   render() {
     return (
-      <Tabs/>
+      <Provider store={createStore(reducer)}>
+        <View style={{flex: 1}}>
+          <AppStatusBar backgroundColor={color.purple} barStyle="light-content" />
+          <Stack/>
+        </View>
+      </Provider>
     );
   }
 }
