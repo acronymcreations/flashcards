@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, Platform, StatusBar } from 'react-native';
 import { TabNavigator, StackNavigator } from 'react-navigation'
-import Deck from './components/Deck'
 import Home from './components/Home'
 import NewDeck from './components/NewDeck'
 import DeckQuestions from './components/DeckQuestions'
