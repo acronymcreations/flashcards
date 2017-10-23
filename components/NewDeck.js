@@ -1,9 +1,11 @@
-import React from 'react'
+import React, {Component} from 'react'
 import { StyleSheet, Text, View, TextInput, Button, TouchableOpacity } from 'react-native';
 import * as api from '../utils/api'
 import * as color from '../utils/colors'
+import { connect } from 'react-redux'
+import {addDeck} from '../actions'
 
-export default class NewDeck extends React.Component{
+class NewDeck extends Component{
   state = {
     title: '',
     subject: '',
@@ -27,7 +29,9 @@ export default class NewDeck extends React.Component{
         subject: this.state.subject,
         questions: []
       }
-      api.addDeck({id: this.state.title, deck: deck})
+      api.addDeck({id: this.state.title, deck: deck});
+      this.props.addDeck({title: deck});
+      //TODO reset state to '' and navigate back to home page
     }
   }
 
@@ -100,3 +104,15 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
   }
 })
+
+function mapStateToProps(state){
+  return {}
+}
+
+function mapDispatchToProps(dispatch){
+  return {
+    addDeck: (data) => dispatch(addDeck(data)),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewDeck)
