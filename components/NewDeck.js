@@ -4,6 +4,7 @@ import * as api from '../utils/api'
 import * as color from '../utils/colors'
 import { connect } from 'react-redux'
 import {addDeck} from '../actions'
+import { NavigationActions } from 'react-navigation'
 
 class NewDeck extends Component{
   state = {
@@ -31,8 +32,10 @@ class NewDeck extends Component{
       }
       api.addDeck({id: this.state.title, deck: deck});
       this.props.addDeck({title: deck});
-      //TODO reset state to '' and navigate back to home page
+      this.setState({title: '', subject: ''})
+      this.props.navigation.dispatch(NavigationActions.navigate({routeName: 'Home'}))
     }
+
   }
 
   render(){
@@ -77,7 +80,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: color.white,
-    margin: 15,
+    padding: 15,
   },
   input: {
     height: 40,
