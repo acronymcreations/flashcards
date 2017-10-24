@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { StyleSheet, Text, View, TextInput, Button, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, TouchableNativeFeedback } from 'react-native';
 import * as api from '../utils/api'
 import * as color from '../utils/colors'
 import { connect } from 'react-redux'
@@ -11,7 +11,7 @@ class NewDeck extends Component{
     title: '',
     subject: '',
     allowSubmit: true,
-    errorMessage: '',
+    errorMessage: ' ',
   }
 
   submitNewDeck(){
@@ -24,7 +24,7 @@ class NewDeck extends Component{
     else if(this.state.subject.length > 25)
       this.setState({errorMessage: 'Subject is too long.'})
     else{
-      this.setState({errorMessage: ''})
+      this.setState({errorMessage: ' '})
       let deck = {
         title: this.state.title,
         subject: this.state.subject,
@@ -66,11 +66,16 @@ class NewDeck extends Component{
           value={this.state.subject}
         />
         <Text style={styles.errorMessage}>{this.state.errorMessage}</Text>
-        <TouchableOpacity
-          onPress={() => this.submitNewDeck()}
-          activeOpacity={0.75}>
-            <Text style={styles.buttonText}>Create</Text>
-        </TouchableOpacity>
+        <View style={styles.button}>
+          <TouchableNativeFeedback
+            onPress={() => this.submitNewDeck()}
+            background={TouchableNativeFeedback.Ripple('white')}
+          >
+            <View>
+              <Text style={styles.buttonText}>Create</Text>
+            </View>
+          </TouchableNativeFeedback>
+        </View>
       </View>
     )
   }
@@ -96,13 +101,18 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: 'center',
   },
-  buttonText: {
-    margin: 10,
+  button: {
+    marginLeft: 20,
+    marginRight: 20,
+    marginTop: 10,
+    marginBottom: 10,
     borderRadius: 5,
+    backgroundColor: color.darkblue,
+  },
+  buttonText: {
     color: color.white,
     textAlign: 'center',
     fontSize: 24,
-    backgroundColor: color.darkblue,
     paddingTop: 5,
     paddingBottom: 5,
   }
