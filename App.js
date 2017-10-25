@@ -4,6 +4,7 @@ import { TabNavigator, StackNavigator } from 'react-navigation'
 import Home from './components/Home'
 import NewDeck from './components/NewDeck'
 import DeckQuestions from './components/DeckQuestions'
+import Practice from './components/Practice'
 import * as color from './utils/colors'
 import { Constants } from 'expo'
 import { createStore } from 'redux'
@@ -50,6 +51,12 @@ const Stack = StackNavigator({
   },
   DeckQuestions: {
     screen: DeckQuestions,
+    navigationOptions: {
+      headerTintColor: color.darkblue,
+    }
+  },
+  Practice: {
+    screen: Practice,
     navigationOptions: {
       headerTintColor: color.darkblue,
     }

@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
-import { StyleSheet, Text, View, TouchableNativeFeedback } from 'react-native';
-import Deck from './../components/Deck'
+import { StyleSheet, Text, View, TouchableNativeFeedback, FlatList } from 'react-native';
 import * as color from './../utils/colors'
 import { connect } from 'react-redux'
 import {addAllDecks} from '../actions'
@@ -8,48 +7,58 @@ import * as api from '../utils/api'
 import { NavigationActions } from 'react-navigation'
 
 class Home extends Component{
-
-  componentDidMount(){
-    api.getDecks().then((r) => this.props.addAllDecks(r))
+  state = {
+    decks: {},
   }
 
-  goToDeck(){
-    console.log("button pressed", this.props)
-    this.props.navigation.dispatch(NavigationActions.navigate({routeName: 'DeckQuestions'}))
+  componentDidMount(){
+      api.getDecks().then((r) => this.props.addAllDecks(r))
+  }
+
+  goToDeck(id){
+    this.props.navigation.dispatch(NavigationActions.navigate({
+      routeName: 'DeckQuestions',
+      params: {
+        id: id
+      }
+    }))
   }
 
   render(){
-    console.log(this.props)
     let decks = this.props.decks
-    if(Object.keys(decks).length > 0){
+    let deckCards = Object.keys(decks).map((d) => {
+      let cards = decks[d].questions.length === 1 ?
+                  decks[d].questions.length + ' Card' :
+                  decks[d].questions.length + ' Cards'
       return (
-          <View style={styles.container}>
-            {Object.keys(decks).map((d) => {
-              return (
-                <TouchableNativeFeedback
-                  onPress={() => this.goToDeck()}
-                  background={TouchableNativeFeedback.SelectableBackground()}
-                  key={d}
-                >
-                  <View style={styles.deck}>
-                      <Text style={styles.title}>
-                        {decks[d].title}
-                      </Text>
-                      <Text style={styles.subject}>
-                        {decks[d].subject}
-                      </Text>
-                  </View>
-                </TouchableNativeFeedback>
-              )
-            })}
+        <TouchableNativeFeedback
+          onPress={() => this.goToDeck(d)}
+          background={TouchableNativeFeedback.SelectableBackground()}
+          key={d}
+        >
+          <View style={styles.deck}>
+              <Text style={styles.title}>
+                {decks[d].title}
+              </Text>
+              <Text style={styles.subject}>
+                {decks[d].subject}
+              </Text>
+              <Text style={styles.cards}>
+                {cards}
+              </Text>
           </View>
+        </TouchableNativeFeedback>
       )
-    }
-    else {
-      return <Text>No Decks</Text>
-    }
+    })
+    return (
+        <View style={styles.container}>
+          <FlatList
+            data={deckCards}
+            renderItem={({item}) => item}
+          />
+        </View>
+    )
   }
-
 }
 
 const styles = StyleSheet.create({
@@ -67,13 +76,22 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     fontSize: 24,
     paddingLeft: 10,
+    textAlign: 'center',
   },
   subject: {
+    fontSize: 16,
+    color: color.black,
+    paddingLeft: 10,
+    paddingBottom: 10,
+    textAlign: 'center',
+  },
+  cards: {
     fontSize: 16,
     color: color.gray,
     paddingLeft: 10,
     paddingBottom: 10,
-  },
+    textAlign: 'center',
+  }
 })
 
 

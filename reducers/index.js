@@ -14,7 +14,9 @@ function flashcards(state={}, action){
     }
   }
   else if(action.type === DELETE_DECK){
-    return state
+    let new_state = state
+    delete new_state[action.id]
+    return new_state
   }
   else{
     return state
