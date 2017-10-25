@@ -1,4 +1,4 @@
-import {ADD_ALL_DECKS, ADD_DECK, DELETE_DECK} from '../actions'
+import {ADD_ALL_DECKS, ADD_DECK, DELETE_DECK, ADD_CARD} from '../actions'
 
 function flashcards(state={}, action){
   if(action.type === ADD_ALL_DECKS){
@@ -16,6 +16,14 @@ function flashcards(state={}, action){
   else if(action.type === DELETE_DECK){
     let new_state = state
     delete new_state[action.id]
+    return new_state
+  }
+  else if(action.type === ADD_CARD){
+    let new_state = state
+    console.log('reducer', new_state, action)
+    console.log('original state', new_state)
+    new_state[action.id].questions.push(action.card)
+    console.log('new state', new_state)
     return new_state
   }
   else{

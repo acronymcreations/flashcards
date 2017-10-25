@@ -177,7 +177,6 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state, ownProps){
   let id = ownProps.navigation.state.params.id
-  console.log(state[id].questions)
   if(id in state){
     return{
       id: id,

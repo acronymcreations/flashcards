@@ -5,6 +5,7 @@ import Home from './components/Home'
 import NewDeck from './components/NewDeck'
 import DeckQuestions from './components/DeckQuestions'
 import Practice from './components/Practice'
+import AddCard from './components/AddCard'
 import * as color from './utils/colors'
 import { Constants } from 'expo'
 import { createStore } from 'redux'
@@ -57,6 +58,12 @@ const Stack = StackNavigator({
   },
   Practice: {
     screen: Practice,
+    navigationOptions: {
+      headerTintColor: color.darkblue,
+    }
+  },
+  AddCard: {
+    screen: AddCard,
     navigationOptions: {
       headerTintColor: color.darkblue,
     }

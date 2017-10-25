@@ -76,21 +76,18 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     fontSize: 24,
     paddingLeft: 10,
-    textAlign: 'center',
   },
   subject: {
     fontSize: 16,
     color: color.black,
     paddingLeft: 10,
     paddingBottom: 10,
-    textAlign: 'center',
   },
   cards: {
     fontSize: 16,
     color: color.gray,
     paddingLeft: 10,
     paddingBottom: 10,
-    textAlign: 'center',
   }
 })
 

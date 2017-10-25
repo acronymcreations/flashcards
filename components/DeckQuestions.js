@@ -23,6 +23,15 @@ class DeckQuestions extends Component{
     }))
   }
 
+  goToAddCard(id){
+    this.props.navigation.dispatch(NavigationActions.navigate({
+      routeName: 'AddCard',
+      params: {
+        id: id
+      }
+    }))
+  }
+
   componentDidMount(){
     const {setParams} = this.props.navigation;
     setParams({deleteDeck: this.deleteDeck});
@@ -81,7 +90,7 @@ class DeckQuestions extends Component{
           </View>
           <View style={styles.button}>
             <TouchableNativeFeedback
-              onPress={() => console.log('button')}
+              onPress={() => this.goToAddCard(this.props.id)}
               background={TouchableNativeFeedback.Ripple('white')}
             >
               <View>
