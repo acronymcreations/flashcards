@@ -15,12 +15,18 @@ class DeckQuestions extends Component{
   }
 
   goToPractice(id){
-    this.props.navigation.dispatch(NavigationActions.navigate({
-      routeName: 'Practice',
-      params: {
-        id: id
-      }
-    }))
+    if(this.props.questions.length === 0){
+      ToastAndroid.show('Please add at least one card', ToastAndroid.SHORT);
+    }
+    else{
+      this.props.navigation.dispatch(NavigationActions.navigate({
+        routeName: 'Practice',
+        params: {
+          id: id
+        }
+      }))
+    }
+
   }
 
   goToAddCard(id){
@@ -95,7 +101,7 @@ class DeckQuestions extends Component{
               background={TouchableNativeFeedback.Ripple('white')}
             >
               <View>
-                <Text style={styles.buttonText}>Add Cards</Text>
+                <Text style={styles.buttonText}>Add Card</Text>
               </View>
             </TouchableNativeFeedback>
           </View>
