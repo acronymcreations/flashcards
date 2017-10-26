@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { StyleSheet, Text, View, TextInput, Button, TouchableNativeFeedback } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, TouchableNativeFeedback, Keyboard } from 'react-native';
 import * as api from '../utils/api'
 import * as color from '../utils/colors'
 import { connect } from 'react-redux'
@@ -25,15 +25,34 @@ class NewDeck extends Component{
       this.setState({errorMessage: 'Subject is too long.'})
     else{
       this.setState({errorMessage: ' '})
+      let title = this.state.title
       let deck = {
         title: this.state.title,
         subject: this.state.subject,
         questions: []
       }
-      api.addDeck({id: this.state.title, deck: deck});
-      this.props.addDeck({title: deck});
-      this.setState({title: '', subject: ''})
-      this.props.navigation.dispatch(NavigationActions.navigate({routeName: 'Home'}))
+
+      Keyboard.dismiss();
+
+      this.setState({
+        title: '',
+        subject: '',
+        errorMessage: ' ',
+      })
+
+      let complete = {}
+      complete[title] = deck
+
+      this.props.addDeck(complete)
+      api.addDeck({id: title, deck: deck}).then(() => {
+        this.props.navigation.dispatch(NavigationActions.navigate({
+          routeName: 'DeckQuestions',
+          params: {
+            id: title
+          }
+        }))
+      })
+
     }
 
   }

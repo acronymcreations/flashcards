@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import * as color from '../utils/colors'
 import Card from './Card'
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
+import { NavigationActions } from 'react-navigation'
 
 class Practice extends Component{
 
@@ -61,13 +62,26 @@ class Practice extends Component{
     })
   }
 
-  onFinish(){
+  onRestart(){
+    this.setState({
+      onFinish: false,
+      showQuestion: true,
+      correct: 0,
+      incorrect: 0,
+      question: 0,
+    })
+  }
 
-
+  onBackToDeck(){
+    this.props.navigation.dispatch(NavigationActions.navigate({
+      routeName: 'DeckQuestions',
+      params: {
+        id: this.props.id
+      }
+    }))
   }
 
   render() {
-    console.log(this.state)
 
     const config = {
       velocityThreshold: 0.3,
@@ -77,9 +91,33 @@ class Practice extends Component{
     if(this.state.onFinish){
       return(
         <View>
-          <Text style={[styles.summaryText, {paddingTop: 30}]}>Finished!</Text>
-          <Text style={styles.summaryText}>{this.state.correct} out of {this.state.question} Correct</Text>
-          <Text style={styles.summaryText}>{this.state.correct / this.state.question * 100}%</Text>
+          <View>
+            <Text style={[styles.summaryText, {paddingTop: 30}]}>Finished!</Text>
+            <Text style={styles.summaryText}>{this.state.correct} out of {this.state.question} Correct</Text>
+            <Text style={styles.summaryText}>{this.state.correct / this.state.question * 100}%</Text>
+          </View>
+          <View style={styles.bottom}>
+            <View style={[styles.button, {backgroundColor: color.darkblue}]}>
+              <TouchableNativeFeedback
+                onPress={() => this.onRestart()}
+                background={TouchableNativeFeedback.Ripple('black')}
+              >
+                <View>
+                  <Text style={styles.buttonText}>Start Over</Text>
+                </View>
+              </TouchableNativeFeedback>
+            </View>
+            <View style={[styles.button, {backgroundColor: color.darkblue}]}>
+              <TouchableNativeFeedback
+                onPress={() => this.onBackToDeck()}
+                background={TouchableNativeFeedback.Ripple('black')}
+              >
+                <View>
+                  <Text style={styles.buttonText}>Back to Deck</Text>
+                </View>
+              </TouchableNativeFeedback>
+            </View>
+          </View>
         </View>
       )
     }

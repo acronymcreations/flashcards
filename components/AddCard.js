@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Text, StyleSheet, View, TextInput, TouchableNativeFeedback, ToastAndroid} from 'react-native'
+import {Text, StyleSheet, View, TextInput, TouchableNativeFeedback, ToastAndroid, Keyboard} from 'react-native'
 import {connect} from 'react-redux'
 import {addCard} from '../actions/'
 import * as color from '../utils/colors'
@@ -32,6 +32,7 @@ class AddCard extends Component{
         answer: '',
         errorMessage: ' '
       })
+      Keyboard.dismiss();
       this.props.navigation.dispatch(NavigationActions.navigate({
         routeName: 'DeckQuestions',
         params: {

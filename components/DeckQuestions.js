@@ -33,6 +33,7 @@ class DeckQuestions extends Component{
   }
 
   componentDidMount(){
+
     const {setParams} = this.props.navigation;
     setParams({deleteDeck: this.deleteDeck});
   }
@@ -153,6 +154,8 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state, ownProps){
   let id = ownProps.navigation.state.params.id
+  console.log(id)
+  console.log(state)
   if(id in state){
     return{
       id: id,
