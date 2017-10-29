@@ -1,9 +1,9 @@
 # Flashcards
 
-Flashcards is an app built with React-Native that allows the user to build
+Flashcards is an app built with React-Native that allows Android users to build
 virtual flashcards on various topics.  Once created, the user can quiz themselves.
 
-Note: This app was built for and tested with the Android operating system only.
+Note: This app was built for and tested on a Samsung S8 Android device.
 
 # Quickstart
 
