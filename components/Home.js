@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { StyleSheet, Text, View, TouchableNativeFeedback, FlatList } from 'react-native';
+import { StyleSheet, Text, View, TouchableNativeFeedback, FlatList, Animated } from 'react-native';
 import * as color from './../utils/colors'
 import { connect } from 'react-redux'
 import {addAllDecks} from '../actions'
@@ -10,6 +10,7 @@ import {getNotifications} from '../utils/helpers'
 class Home extends Component{
   state = {
     decks: {},
+    opacity: new Animated.Value(1),
   }
 
   componentDidMount(){
@@ -17,27 +18,33 @@ class Home extends Component{
   }
 
   goToDeck(id){
-    this.props.navigation.dispatch(NavigationActions.navigate({
-      routeName: 'DeckQuestions',
-      params: {
-        id: id
-      }
-    }))
+    Animated.timing(this.state.opacity, {toValue: 0, duration: 500}).start()
+    setTimeout(() => {
+      Animated.timing(this.state.opacity, {toValue: 1, duration: 2000}).start()
+      this.props.navigation.dispatch(NavigationActions.navigate({
+        routeName: 'DeckQuestions',
+        params: {
+          id: id
+        }
+      }))
+
+    }, 500)
+
   }
 
   render(){
     let decks = this.props.decks
     let deckCards = Object.keys(decks).map((d) => {
-      let cards = decks[d].questions.length === 1 ?
-                  decks[d].questions.length + ' Card' :
-                  decks[d].questions.length + ' Cards'
+    let cards = decks[d].questions.length === 1 ?
+                decks[d].questions.length + ' Card' :
+                decks[d].questions.length + ' Cards'
       return (
         <TouchableNativeFeedback
           onPress={() => this.goToDeck(d)}
           background={TouchableNativeFeedback.SelectableBackground()}
           key={d}
         >
-          <View style={styles.deck}>
+          <Animated.View style={[styles.deck, {opacity: this.state.opacity}]}>
               <Text style={styles.title}>
                 {decks[d].title}
               </Text>
@@ -47,7 +54,7 @@ class Home extends Component{
               <Text style={styles.cards}>
                 {cards}
               </Text>
-          </View>
+          </Animated.View>
         </TouchableNativeFeedback>
       )
     })
