@@ -5,6 +5,7 @@ import * as color from '../utils/colors'
 import Card from './Card'
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 import { NavigationActions } from 'react-navigation'
+import {setLocalNotification, clearLocalNotification} from '../utils/helpers'
 
 class Practice extends Component{
 
@@ -81,6 +82,10 @@ class Practice extends Component{
     }))
   }
 
+  componentDidMount(){
+    clearLocalNotification().then(setLocalNotification())
+  }
+
   render() {
 
     const config = {
@@ -94,7 +99,7 @@ class Practice extends Component{
           <View>
             <Text style={[styles.summaryText, {paddingTop: 30}]}>Finished!</Text>
             <Text style={styles.summaryText}>{this.state.correct} out of {this.state.question} Correct</Text>
-            <Text style={styles.summaryText}>{this.state.correct / this.state.question * 100}%</Text>
+            <Text style={styles.summaryText}>{Math.floor(this.state.correct / this.state.question * 100)}%</Text>
           </View>
           <View style={styles.bottom}>
             <View style={[styles.button, {backgroundColor: color.darkblue}]}>

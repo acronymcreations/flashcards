@@ -20,10 +20,7 @@ function flashcards(state={}, action){
   }
   else if(action.type === ADD_CARD){
     let new_state = state
-    console.log('reducer', new_state, action)
-    console.log('original state', new_state)
     new_state[action.id].questions.push(action.card)
-    console.log('new state', new_state)
     return new_state
   }
   else{

@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import {addAllDecks} from '../actions'
 import * as api from '../utils/api'
 import { NavigationActions } from 'react-navigation'
+import {getNotifications} from '../utils/helpers'
 
 class Home extends Component{
   state = {

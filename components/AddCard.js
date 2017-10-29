@@ -14,7 +14,6 @@ class AddCard extends Component{
   }
 
   addCard(){
-    console.log(this.props.id)
     if(this.state.question.length < 5){
       this.setState({errorMessage: 'Question is too short.'})
     }else if(this.state.answer.length < 5){
@@ -69,7 +68,6 @@ class AddCard extends Component{
           autoCapitalize='sentences'
           placeholder='Answer'
           returnKeyType='done'
-          onSubmitEditing={(() => console.log("submit button pressed"))}
           maxLength={75}
           numberOfLines={3}
           multiline={true}

@@ -7,7 +7,7 @@ Note: This app was built for and tested with the Android operating system only.
 
 # Quickstart
 
-1. Clone the project.
+1. Clone/download the project
 
 2. Install all dependencies using `npm install`
 

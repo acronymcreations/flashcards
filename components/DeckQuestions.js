@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
-import { StyleSheet, Text, View, TouchableOpacity, TouchableNativeFeedback, Button, ToastAndroid } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity,
+  TouchableNativeFeedback, Button, ToastAndroid } from 'react-native';
 import { connect } from 'react-redux'
 import * as color from '../utils/colors'
 import * as api from '../utils/api'
@@ -160,8 +161,6 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state, ownProps){
   let id = ownProps.navigation.state.params.id
-  console.log(id)
-  console.log(state)
   if(id in state){
     return{
       id: id,
