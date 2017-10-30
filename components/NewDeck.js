@@ -15,20 +15,21 @@ class NewDeck extends Component{
   }
 
   submitNewDeck(){
-    if(this.state.title.length < 5)
-      this.setState({errorMessage: 'Title is too short.'})
-    else if(this.state.title.length > 25)
-      this.setState({errorMessage: 'Title is too long.'})
-    else if(this.state.subject.length < 5)
-      this.setState({errorMessage: 'Subject is too short.'})
-    else if(this.state.subject.length > 25)
-      this.setState({errorMessage: 'Subject is too long.'})
-    else{
+    const {title, subject} = this.state
+    let errorMessage = ''
+
+    if(subject.length < 5)
+      errorMessage = 'Subject is too short.'
+    if(title.length < 5)
+      errorMessage = 'Title is too short.'
+
+    this.setState({errorMessage})
+
+    if(errorMessage === ''){
       this.setState({errorMessage: ' '})
-      let title = this.state.title
       let deck = {
-        title: this.state.title,
-        subject: this.state.subject,
+        title,
+        subject,
         questions: []
       }
 
@@ -78,7 +79,7 @@ class NewDeck extends Component{
           autoCapitalize='words'
           placeholder='Subject'
           returnKeyType='done'
-          onSubmitEditing={(() => console.log("submit button pressed"))}
+          onSubmitEditing={() => this.submitNewDeck()}
           maxLength={25}
           style={styles.input}
           onChangeText={(subject) => this.setState({subject})}

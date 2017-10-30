@@ -4,9 +4,6 @@ import { connect } from 'react-redux'
 import * as color from '../utils/colors'
 
 class Card extends Component{
-  state = {
-
-  }
 
   static navigationOptions = ({navigation}) => {
     let title = navigation.state.params.id

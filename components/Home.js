@@ -7,20 +7,14 @@ import * as api from '../utils/api'
 import { NavigationActions } from 'react-navigation'
 import {getNotifications} from '../utils/helpers'
 
-class Home extends React.Component{
+class Home extends Component{
   state = {
     decks: {},
     opacity: new Animated.Value(1),
   }
 
   componentDidMount(){
-    // console.log('componentDidMount', this.props.decks)
     api.getDecks().then((r) => this.props.addAllDecks(r))
-  }
-
-  shouldComponentUpdate(nextProps, nextState){
-    console.log('should I update?', nextProps.decks)
-    return true
   }
 
   goToDeck(id){
@@ -37,8 +31,7 @@ class Home extends React.Component{
   }
 
   render(){
-    // console.log('render', this.props.decks)
-    let decks = this.props.decks
+    const { decks } = this.props
     let deckCards = Object.keys(decks).map((d) => {
     let cards = decks[d].questions.length === 1 ?
                 decks[d].questions.length + ' Card' :

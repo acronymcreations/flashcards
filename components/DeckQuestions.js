@@ -81,9 +81,8 @@ class DeckQuestions extends Component{
   }
 
   render(){
-    let cards = this.props.questions.length === 1 ?
-                this.props.questions.length + ' Card' :
-                this.props.questions.length + ' Cards'
+    let len = this.props.questions.length
+    let cards = len === 1 ? len + ' Card' : len + ' Cards'
     return(
       <View style={styles.container}>
         <View style={styles.top}>

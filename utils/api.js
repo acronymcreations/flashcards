@@ -9,10 +9,6 @@ export function getDecks(){
     })
 }
 
-export function getCards(deckId){
-
-}
-
 export function addDeck({id, deck}){
   return AsyncStorage.mergeItem(DECK_STORAGE_KEY, JSON.stringify({
     [id]: deck
@@ -40,8 +36,4 @@ export function addCard(card, deckId){
       AsyncStorage.setItem(DECK_STORAGE_KEY, JSON.stringify(data))
       return data
     })
-}
-
-export function removeCard(cardId){
-
 }

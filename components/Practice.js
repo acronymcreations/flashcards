@@ -8,33 +8,27 @@ import { NavigationActions } from 'react-navigation'
 import {setLocalNotification, clearLocalNotification} from '../utils/helpers'
 
 class Practice extends Component{
-
-  constructor(props) {
-    super(props);
-    this.state = {
+    state = {
       showQuestion: true,
-      gestureName: 'none',
       question: 0,
       correct: 0,
       incorrect: 0,
       onFinish: false,
-    };
-  }
+    }
 
   static navigationOptions = ({navigation}) => {
     const {state} = navigation;
-    let title = navigation.state.params.id
+    const { id: title } = navigation.state.params
     return {
-      title: title,
+      title,
       headerStyle:{
         backgroundColor: color.white,
       },
     }
   }
 
-  onSwipe(gestureName, gestureState) {
-    let showQuestion = this.state.showQuestion ? false : true
-    this.setState({showQuestion})
+  onSwipe() {
+    this.setState(state => ({ showQuestion: !state.showQuestion }))
   }
 
   onCorrect(){
