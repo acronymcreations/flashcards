@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, TouchableOpacity,
 import { connect } from 'react-redux'
 import * as color from '../utils/colors'
 import * as api from '../utils/api'
-import { FontAwesome } from '@expo/vector-icons'
+import { FontAwesome, Ionicons } from '@expo/vector-icons'
 import {deleteDeck} from '../actions'
 import { NavigationActions } from 'react-navigation'
 
@@ -40,7 +40,6 @@ class DeckQuestions extends Component{
   }
 
   componentDidMount(){
-
     const {setParams} = this.props.navigation;
     setParams({deleteDeck: this.deleteDeck});
   }
@@ -49,10 +48,17 @@ class DeckQuestions extends Component{
     const {state} = navigation;
     let title = navigation.state.params.id
     return {
+      headerLeft: <Ionicons
+                    style={styles.navIcons}
+                    name='md-arrow-back'
+                    size={25}
+                    color={color.darkblue}
+                    onPress={(data) => navigation.navigate('Home')}
+                  />,
       headerRight: <FontAwesome
-                    style={styles.trashcan}
+                    style={styles.navIcons}
                     name='trash'
-                    size={30}
+                    size={25}
                     color={color.darkblue}
                     onPress={(data) => state.params.deleteDeck()}
                   />,
@@ -117,8 +123,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  trashcan: {
+  navIcons: {
     marginRight: 10,
+    marginLeft: 20,
   },
   top: {
     justifyContent: 'center',
